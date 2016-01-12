@@ -9,37 +9,37 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt=$mysqli->prepare("SELECT post FROM posts WHERE id=? AND deleted IS NULL");
+		$stmt=$mysqli->prepare("SELECT car_number FROM cardata WHERE id=? AND deleted IS NULL");
 		$stmt->bind_param("i",$edit_id);
-		$stmt->bind_result($post);
+		$stmt->bind_result($carnumber);
 		$stmt->execute();
 		
-		$posts=new StdClass();
+		$cars=new StdClass();
 	
 		if($stmt->fetch()){
 			
-			$posts->post=$post;
+			$carnumber->carnumber=$carnumber;
 		
 			
 		}else{	
-			header("Location:poststable.php");
+			header("Location:cartable.php");
 			
 		}
-		return $posts;
+		return $cars;
 		
 		$stmt->close();
 		$mysqli->close();
 	}
 		
-	function updatePosts($id, $post){
+	function updateCardata($id, $carnumber, $date, $traveldistance, $comment){
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE posts SET post=? WHERE id=?");
-		$stmt->bind_param("si", $post,  $id);
+		$stmt = $mysqli->prepare("UPDATE cardata SET car_number=?, date=?, traveldistance=?, comment=? WHERE id=?");
+		$stmt->bind_param("ssssi", $carnumber, $date, $traveldistance, $comment,  $id);
 		if($stmt->execute()){
 			// sai uuendatud
 			// kustutame aadressirea tühjaks
-			header("Location: poststable.php");
+			header("Location: cartable.php");
 			
 		}
 		

@@ -75,7 +75,27 @@
         $mysqli->close();
     }
 	
-   
-	
+	function createDropdown(){
+		    $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+
+		$html= '';
+		$html .='<select name="carnumber">';
+		
+		//$html .='<option>1</option>';
+		//$html .='<option>2</option>';
+		//$html .='<option>3</option>';
+		$stmt=$mysqli->prepare("SELECT id, car_number FROM cardata");
+		$stmt->bind_result($id, $name);
+		$stmt->execute();
+		
+		while($stmt->fetch()){
+			$html .='<option value="'.$name.'">'.$name.'</option>';
+		}
+		
+		$html .= '</select>';
+		
+		return $html;
+	}
+		
     
  ?>

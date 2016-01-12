@@ -18,7 +18,8 @@ require_once("../config_global.php");
 		}
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt= $mysqli->prepare("SELECT id, user_id, carnumber, date, traveldistance, comment from cardata WHERE deleted IS NULL AND carnumber LIKE ? OR traveldistance LIKE ?");
+		$stmt= $mysqli->prepare("SELECT id, user_id, car_number, date, traveldistance, comment from cardata WHERE deleted IS NULL AND car_number LIKE ? OR traveldistance LIKE ?");
+		echo $mysqli->error;
 		$stmt->bind_param("ss",$search, $search);
 		$stmt->bind_result($id, $user_id_from_database, $carnumber, $date, $traveldistance, $comment);
 		$stmt->execute();
@@ -43,7 +44,7 @@ require_once("../config_global.php");
 			$car->dates = $date;
 			$car->user_id= $user_id_from_database;
 			$car->traveldistance= $traveldistance;
-			$car->comment=$comment
+			$car->comment=$comment;
 			//lisan massiivi
 			
 			array_push($car_array, $car);
@@ -62,14 +63,14 @@ require_once("../config_global.php");
 		
 	}
 	
-	function deleteCar($id){
+	function deleteCardata($id){
 	$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 	
-	$stmt = $mysqli->prepare("UPDATE car_plates SET deleted=NOW() WHERE id=?");
+	$stmt = $mysqli->prepare("UPDATE cardata SET deleted=NOW() WHERE id=?");
 	$stmt->bind_param("i", $id);
 	if($stmt->execute()){
 		
-		header("Location: table.php");
+		header("Location: cartable.php");
 		
 	}
 	$stmt->close();
@@ -79,16 +80,16 @@ require_once("../config_global.php");
 	
 	}
 	
-	function updateCar ($id, $number_plate, $color){
+	function updateCardata ($id, $carnumber, $date, $traveldistance, $comment){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE car_plates SET number_plate=?, color=? WHERE id=?");
-        $stmt->bind_param("ssi", $number_plate, $color, $id);
+		$stmt = $mysqli->prepare("UPDATE cardata SET carnumber=?, date=?, traveldistance=?, comment=?  WHERE id=?");
+        $stmt->bind_param("ssi", $carnumber, $date, $traveldistance, $comment, $id);
         if($stmt->execute()){
 			
 		
         
         // tühjendame aadressirea
-        header("Location: table.php");
+        header("Location: cartable.php");
         }
         $stmt->close();
         $mysqli->close();

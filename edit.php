@@ -3,7 +3,7 @@
 	require_once("edit_functions.php");
 	
 	if(isset($_POST["update_carnumber"])){	
-			updatePosts($_POST["id"], $_POST["carnumber"]);
+			updateCardata($_POST["id"], $_POST["carnumber"]);
 	}		
 	
 	if(isset($_GET["edit_id"])){
@@ -14,7 +14,7 @@
 	}else{
 		echo "VIGA";
 		
-		header("Location:poststable.php");
+		header("Location:cartable.php");
 	}
 	
 
@@ -23,6 +23,6 @@
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
 		<input type="hidden" name="id" value="<?=$_GET["edit_id"];?>">
 		<label for="carnumber">Autonumber</label><br>
-		<input id="carnumber" name="carnumber" type="text"  value="<?=$posts->post;?>"> <br><br>
+		<input id="carnumber" name="carnumber" type="text"  value="<?=$car->car;?>"> <br><br>
 		<input type="submit" name="update_post" value="Salvesta">
   </form>	

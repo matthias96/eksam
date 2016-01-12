@@ -1,5 +1,6 @@
 <?php
    require_once("functions.php");
+   require_once("carmanager.php");
    if(!isset($_SESSION["logged_in_user_id"])){
 		header("Location: login.php");
 		
@@ -85,7 +86,8 @@
 	
    
  ?> 
- <a href="poststable.php">Auto andmete sisestamine</a>
+ <a href="cartable.php">Tabel</a>
+ 
  <p>Tere, <?=$_SESSION["logged_in_user_email"];?>
 	<a href="?logout=1"> Logi välja <a>
 </p>
@@ -93,7 +95,8 @@
 <h2>Lisa auto andmed </h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
 	<label for="carnumber">Auto numbrimärk</label><br>
-  	<input id="carnumber" name="carnumber" type="text"  value="<?php echo $carnumber; ?>"> <?php echo $carnumber_error; ?><br><br>
+  	<!--<input id="carnumber" name="carnumber" type="text"  value="<?php echo $carnumber; ?>"> <?php echo $carnumber_error; ?><br><br>-->
+	<?php echo createDropdown(); ?><br>
 	<label for="date">Kuupäev</label><br>
   	<input id="date" name="date" type="date"  value="<?php echo $date; ?>"> <?php echo $date_error; ?><br><br>
 	<label for="traveltdistance">Läbisõit</label><br>
@@ -102,5 +105,11 @@
   	<input id="comment" name="comment" type="text"  value="<?php echo $comment; ?>"> <?php echo $comment_error; ?><br><br>
   	<input type="submit" name="add_cardata" value="Salvesta">
   </form>
+
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
+	<label for="carnumber">Auto numbrimärk</label><br>
+		<input id="carnumber" name="carnumber" type="text"  value="<?php echo $carnumber; ?>"> <?php echo $carnumber_error; ?><br><br>
+		<input type="submit" name="add_cardata" value="Salvesta">
+</form>
 	
-  
+

@@ -9,7 +9,7 @@
 		
 		echo "Kustutame id ".$_GET["delete"];
 		
-		deleteCar($_GET["delete"]);
+		deleteCardata($_GET["delete"]);
 		
 	}
 	if(isset($_POST["save"])){
@@ -45,8 +45,7 @@
 		<th>Kuupäev</th>
 		<th>Läbisõit</th>
 		<th>Kommentaar</th>
-		<th>X</th>
-		<th></th>
+		
 	</tr>
 <?php
 		
@@ -74,12 +73,9 @@
 					echo"<td>".$array_of_cars[$i]->id."</td>";
 					echo"<td>".$array_of_cars[$i]->user_id."</td>";
 					echo"<td>".$array_of_cars[$i]->carnumber."</td>";
-					echo"<td>".$array_of_cars[$i]->date."</td>";
+					echo"<td>".$array_of_cars[$i]->dates."</td>";
 					echo"<td>".$array_of_cars[$i]->traveldistance."</td>";
 					echo"<td>".$array_of_cars[$i]->comment."</td>";
-					echo"<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
-					echo"<td><a href='?edit=".$array_of_cars[$i]->id."'>edit</a></td>";
-					echo"<td><a href='edit.php?edit_id=".$array_of_cars[$i]->id."'>edit.php</a></td>";
 					echo"</tr>";
 		}
 			
@@ -91,7 +87,7 @@
 		}
 				
 				
-	}
+	
 			
 			
 			
